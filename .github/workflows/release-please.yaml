@@ -17,4 +17,3 @@ jobs:
       - uses: googleapis/release-please-action@v4
         with:
           command: bootstrap
-          config-file: release-please-config.json
