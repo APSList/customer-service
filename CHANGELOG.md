@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/APSList/customer-service/compare/v1.0.0...v1.1.0) (2025-12-22)
+
+
+### Features
+
+* release workflow ([cc73216](https://github.com/APSList/customer-service/commit/cc73216abaebddb7660653fb10636d91b36d3a91))
+
 ## 1.0.0 (2025-12-22)
 
 
