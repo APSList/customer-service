@@ -63,7 +63,7 @@ jobs:
         with:
           repository: APSList/Hostflow
           path: helm
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Deploy to DEV with Helm
         run: |
