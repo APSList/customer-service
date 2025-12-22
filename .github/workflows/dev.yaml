@@ -58,10 +58,17 @@ jobs:
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBE_CONFIG_DEV }}" | base64 --decode > $HOME/.kube/config
 
+      - name: Checkout Helm repo
+        uses: actions/checkout@v4
+        with:
+          repository: APSList/Hostflow
+          path: helm
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
       - name: Deploy to DEV with Helm
         run: |
-          helm upgrade --install hostflow-dev ./helm/charts/customers \
+          helm upgrade --install hostflow-dev ./charts/customers \
             --namespace dev \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/customers \
             --set image.tag=dev \
-            --set image.pullPolicy=Always \
+            --set image.pullPolicy=Always
