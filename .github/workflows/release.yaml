@@ -1,11 +1,17 @@
-name: Release Notification
+name: Publish on Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
-  notify:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Release ${{ github.event.release.tag_name }} published!"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Do something on release
+        run: |
+          echo "Release $GITHUB_REF triggered this workflow"
