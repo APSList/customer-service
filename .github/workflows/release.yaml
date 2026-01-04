@@ -72,4 +72,5 @@ jobs:
             --namespace prod \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/customer-service \
             --set image.tag=${GITHUB_REF#refs/tags/} \
-            --set image.pullPolicy=Always
+            --set image.pullPolicy=Always \
+            --set actualSecrets.DATABASE_URL="${{ secrets.DB_URL }}" \
