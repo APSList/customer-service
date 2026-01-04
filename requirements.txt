@@ -1,6 +1,5 @@
 grpcio-reflection
-psycopg
-psycopg-pool
+psycopg[binary]
 grpcio>=1.56.0
 grpcio-tools>=1.56.0
 pytest==8.4.2
