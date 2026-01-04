@@ -68,7 +68,7 @@ jobs:
 
       - name: Deploy to DEV with Helm
         run: |
-          helm upgrade --install hostflow-dev ./Hostflow/helm/charts/customer-service \
+          helm upgrade --install customer-service-dev ./Hostflow/helm/charts/customer-service \
             --namespace dev \
             --set image.repository=${{ secrets.DOCKERHUB_USERNAME }}/customer-service \
             --set image.tag=${{ env.IMAGE_TAG }} \
