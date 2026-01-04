@@ -1,10 +1,10 @@
 import os
 from psycopg_pool import ConnectionPool
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+CUSTOMER_DB_URL = os.getenv("CUSTOMER_DB_URL")
 
 pool = ConnectionPool(
-    conninfo=DATABASE_URL,
+    conninfo=CUSTOMER_DB_URL,
     min_size=1,
     max_size=10,
 )
