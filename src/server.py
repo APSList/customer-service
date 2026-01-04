@@ -1,19 +1,23 @@
-import asyncio
-from grpc import aio
+import grpc
+from concurrent import futures
 from generated import customer_pb2_grpc
-from services import HelloWorld
+from services import CustomerService
+from grpc_reflection.v1alpha import reflection
 
-async def serve():
-    server = aio.server()
+def serve():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    customer_pb2_grpc.add_CustomerServiceServicer_to_server(CustomerService(), server)
 
-    customer_pb2_grpc.add_HelloWorldServicer_to_server(HelloWorld(), server)
+    SERVICE_NAMES = (
+        customer_pb2_grpc.CustomerServiceServicer.__name__,
+        reflection.SERVICE_NAME,
+    )
+    reflection.enable_server_reflection(SERVICE_NAMES, server)
 
-    listen_addr = '[::]:50051'
-    server.add_insecure_port(listen_addr)
-    print(f"Starting gRPC server with reflection on {listen_addr}")
+    server.add_insecure_port('[::]:50051')
+    server.start()
+    print("gRPC server running on port 50051 with reflection")
+    server.wait_for_termination()
 
-    await server.start()
-    await server.wait_for_termination()
-
-if __name__ == '__main__':
-    asyncio.run(serve())
+if __name__ == "__main__":
+    serve()

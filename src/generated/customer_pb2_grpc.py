@@ -25,7 +25,7 @@ if _version_not_supported:
     )
 
 
-class HelloWorldStub(object):
+class CustomerServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,43 +34,91 @@ class HelloWorldStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SayHello = channel.unary_unary(
-                '/customers.HelloWorld/SayHello',
-                request_serializer=customer__pb2.HelloRequest.SerializeToString,
-                response_deserializer=customer__pb2.HelloReply.FromString,
+        self.GetCustomer = channel.unary_unary(
+                '/customer.CustomerService/GetCustomer',
+                request_serializer=customer__pb2.GetCustomerRequest.SerializeToString,
+                response_deserializer=customer__pb2.CustomerResponse.FromString,
+                _registered_method=True)
+        self.ListCustomers = channel.unary_unary(
+                '/customer.CustomerService/ListCustomers',
+                request_serializer=customer__pb2.ListCustomersRequest.SerializeToString,
+                response_deserializer=customer__pb2.ListCustomersResponse.FromString,
+                _registered_method=True)
+        self.CreateCustomer = channel.unary_unary(
+                '/customer.CustomerService/CreateCustomer',
+                request_serializer=customer__pb2.CreateCustomerRequest.SerializeToString,
+                response_deserializer=customer__pb2.CustomerResponse.FromString,
+                _registered_method=True)
+        self.DeleteCustomer = channel.unary_unary(
+                '/customer.CustomerService/DeleteCustomer',
+                request_serializer=customer__pb2.DeleteCustomerRequest.SerializeToString,
+                response_deserializer=customer__pb2.DeleteCustomerResponse.FromString,
                 _registered_method=True)
 
 
-class HelloWorldServicer(object):
+class CustomerServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def SayHello(self, request, context):
+    def GetCustomer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListCustomers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateCustomer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteCustomer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_HelloWorldServicer_to_server(servicer, server):
+def add_CustomerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SayHello': grpc.unary_unary_rpc_method_handler(
-                    servicer.SayHello,
-                    request_deserializer=customer__pb2.HelloRequest.FromString,
-                    response_serializer=customer__pb2.HelloReply.SerializeToString,
+            'GetCustomer': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCustomer,
+                    request_deserializer=customer__pb2.GetCustomerRequest.FromString,
+                    response_serializer=customer__pb2.CustomerResponse.SerializeToString,
+            ),
+            'ListCustomers': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListCustomers,
+                    request_deserializer=customer__pb2.ListCustomersRequest.FromString,
+                    response_serializer=customer__pb2.ListCustomersResponse.SerializeToString,
+            ),
+            'CreateCustomer': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateCustomer,
+                    request_deserializer=customer__pb2.CreateCustomerRequest.FromString,
+                    response_serializer=customer__pb2.CustomerResponse.SerializeToString,
+            ),
+            'DeleteCustomer': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteCustomer,
+                    request_deserializer=customer__pb2.DeleteCustomerRequest.FromString,
+                    response_serializer=customer__pb2.DeleteCustomerResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'customers.HelloWorld', rpc_method_handlers)
+            'customer.CustomerService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('customers.HelloWorld', rpc_method_handlers)
+    server.add_registered_method_handlers('customer.CustomerService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class HelloWorld(object):
+class CustomerService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SayHello(request,
+    def GetCustomer(request,
             target,
             options=(),
             channel_credentials=None,
@@ -83,9 +131,90 @@ class HelloWorld(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/customers.HelloWorld/SayHello',
-            customer__pb2.HelloRequest.SerializeToString,
-            customer__pb2.HelloReply.FromString,
+            '/customer.CustomerService/GetCustomer',
+            customer__pb2.GetCustomerRequest.SerializeToString,
+            customer__pb2.CustomerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListCustomers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/customer.CustomerService/ListCustomers',
+            customer__pb2.ListCustomersRequest.SerializeToString,
+            customer__pb2.ListCustomersResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateCustomer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/customer.CustomerService/CreateCustomer',
+            customer__pb2.CreateCustomerRequest.SerializeToString,
+            customer__pb2.CustomerResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeleteCustomer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/customer.CustomerService/DeleteCustomer',
+            customer__pb2.DeleteCustomerRequest.SerializeToString,
+            customer__pb2.DeleteCustomerResponse.FromString,
             options,
             channel_credentials,
             insecure,
