@@ -27,13 +27,14 @@ class CustomerService(customer_pb2_grpc.CustomerServiceServicer):
                     id=u[0],
                     full_name=u[1],
                     email=u[2],
-                    created_at=str(u[3])
+                    created_at=str(u[3]),
+                    organization_id=u[4]
                 ) for u in users
             ]
         )
 
     def CreateCustomer(self, request, context):
-        create_customer(request.full_name, request.email)
+        create_customer(request.full_name, request.email, request.organization_id)
 
         users = get_customers()
         new_user = users[-1]  # simple approach, last inserted
@@ -42,7 +43,8 @@ class CustomerService(customer_pb2_grpc.CustomerServiceServicer):
                 id=new_user[0],
                 full_name=new_user[1],
                 email=new_user[2],
-                created_at=str(new_user[3])
+                created_at=str(new_user[3]),
+                organization_id=new_user[4]
             )
         )
 
