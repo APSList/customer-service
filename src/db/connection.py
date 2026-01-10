@@ -1,7 +1,22 @@
-import os
+import logging
 from psycopg_pool import ConnectionPool
+import hvac
 
-CUSTOMER_DB_URL = os.getenv("CUSTOMER_DB_URL")
+logger = logging.getLogger(__name__)
+
+client = hvac.Client(
+    url='HASHICORP_VAULT_ADDR',
+    token='HASHICORP_VAULT_TOKEN',
+    namespace='admin'
+)
+
+read_response = client.secrets.kv.read_secret_version(path='/database')
+
+CUSTOMER_DB_URL = read_response['data']['data']['CUSTOMER_DB_URL']
+
+if not CUSTOMER_DB_URL:
+    logger.warning("CUSTOMER_DB_URL is not configured in environment or Vault; ConnectionPool may fail to initialize")
+
 
 pool = ConnectionPool(
     conninfo=CUSTOMER_DB_URL,
