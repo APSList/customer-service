@@ -56,7 +56,7 @@ def serve():
 
     server.add_insecure_port('[::]:50051')
     server.start()
-    print("gRPC server running on port 50051 with reflection")
+    logger.info("gRPC server running on port 50051 with reflection")
     server.wait_for_termination()
 
 if __name__ == "__main__":
